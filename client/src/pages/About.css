@@ -1,0 +1,113 @@
+/* About, HowItWorks, MLModels Page Styles */
+.about, .how-it-works, .ml-models {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.about-hero, .hiw-hero, .ml-hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 16px;
+  margin-bottom: 40px;
+}
+
+.about-hero h1, .hiw-hero h1, .ml-hero h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.about-content, .hiw-content, .ml-content {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.about-section, .hiw-step, .ml-model-section {
+  margin-bottom: 50px;
+}
+
+.about-section h2, .hiw-step h2, .ml-model-section h2 {
+  font-size: 28px;
+  color: #1a202c;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.problem-points, .solution-points, .benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.problem-point, .solution-point, .benefit-card {
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+.icon {
+  font-size: 32px;
+  margin-right: 10px;
+}
+
+.tech-stack, .tech-category {
+  margin: 20px 0;
+}
+
+.code-block {
+  background: #1a202c;
+  color: #48bb78;
+  padding: 20px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  overflow-x: auto;
+  margin: 15px 0;
+}
+
+.specs-grid, .metrics-table {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.metrics-table {
+  border-collapse: collapse;
+}
+
+.metrics-table th, .metrics-table td {
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.metrics-table th {
+  background: #667eea;
+  color: white;
+}
+
+.step-header .step-number {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+@media (max-width: 768px) {
+  .about-content, .hiw-content, .ml-content {
+    padding: 20px;
+  }
+}

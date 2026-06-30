@@ -1,0 +1,40 @@
+/* Import Register.css styles */
+@import './Register.css';
+
+.login-mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 6px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.login-mode-toggle button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #4a5568;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-mode-toggle button.active {
+  background: #1a202c;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(26, 32, 44, 0.18);
+}
+
+.link-button {
+  border: 0;
+  background: transparent;
+  color: #667eea;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
