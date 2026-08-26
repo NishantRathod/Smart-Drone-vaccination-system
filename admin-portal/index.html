@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Smart Vaccination System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-shield-virus"></i>
+                <span>Smart Vaccination Admin</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+                <a href="#requests" class="nav-link" data-page="requests">
+                    <i class="fas fa-list"></i> Requests
+                </a>
+                <a href="#camera" class="nav-link" data-page="camera">
+                    <i class="fas fa-camera"></i> Camera
+                </a>
+                <a href="#ml-monitor" class="nav-link" data-page="ml-monitor">
+                    <i class="fas fa-brain"></i> ML Monitor
+                </a>
+                <a href="#users" class="nav-link" data-page="users">
+                    <i class="fas fa-users"></i> Users
+                </a>
+            </div>
+            <div class="nav-user">
+                <div class="status-indicator">
+                    <span class="status-dot" id="systemStatus"></span>
+                    <span id="statusText">System Online</span>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-shield-virus"></i>
+                <h1>Admin Portal</h1>
+                <p>Smart Vaccination System</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="loginEmail" placeholder="admin@vaccination.com" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+            <div id="loginError" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent" style="display: none;">
+        
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page active">
+            <div class="page-header">
+                <h1><i class="fas fa-chart-line"></i> Dashboard Overview</h1>
+                <div class="header-actions">
+                    <button class="btn-refresh" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <button class="btn-export" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalRequests">0</h3>
+                        <p>Total Requests</p>
+                        <span class="stat-change">+5 today</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingRequests">0</h3>
+                        <p>Pending Approval</p>
+                        <span class="stat-change">Awaiting action</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="inProgressRequests">0</h3>
+                        <p>In Progress</p>
+                        <span class="stat-change">Active now</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="completedRequests">0</h3>
+                        <p>Completed</p>
+                        <span class="stat-change">Success rate: 98%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Activity Feed -->
+            <div class="dashboard-row">
+                <div class="activity-panel">
+                    <h2><i class="fas fa-bell"></i> Live Activity Feed</h2>
+                    <div id="activityFeed" class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p><strong>System Initialized</strong></p>
+                                <small>Admin portal is ready</small>
+                            </div>
+                            <span class="activity-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="system-health">
+                    <h2><i class="fas fa-heartbeat"></i> System Health</h2>
+                    <div class="health-item">
+                        <span>Backend Server</span>
+                        <span class="health-status" id="backendStatus">
+                            <i class="fas fa-circle"></i> Checking...
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span>ML Service</span>
+                        <span class="health-status" id="mlStatus">
+                            <i class="fas fa-circle"></i> Checking...
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span>Database</span>
+                        <span class="health-status" id="dbStatus">
+                            <i class="fas fa-circle"></i> Checking...
+                        </span>
+                    </div>
+                    <div class="health-item">
+                        <span>ESP32 Camera</span>
+                        <span class="health-status" id="cameraStatus">
+                            <i class="fas fa-circle"></i> Checking...
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Requests -->
+            <div class="recent-requests">
+                <h2><i class="fas fa-history"></i> Recent Requests</h2>
+                <div id="recentRequestsTable"></div>
+            </div>
+        </div>
+
+        <!-- Requests Page -->
+        <div id="requestsPage" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-list"></i> Vaccination Requests</h1>
+                <div class="header-actions">
+                    <select id="filterStatus" class="filter-select" onchange="filterRequests()">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <input type="search" id="searchRequests" placeholder="Search..." class="search-input">
+                </div>
+            </div>
+
+            <div id="requestsTable" class="requests-table"></div>
+        </div>
+
+        <!-- Camera Page -->
+        <div id="cameraPage" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-camera"></i> Camera Control</h1>
+            </div>
+
+            <div class="camera-container">
+                <div class="camera-main">
+                    <div class="camera-view">
+                        <canvas id="cameraFeed" class="camera-feed"></canvas>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="btn-camera" id="captureBtn">
+                            <i class="fas fa-camera"></i> Capture
+                        </button>
+                        <button class="btn-camera" id="verifyFaceBtn">
+                            <i class="fas fa-user-check"></i> Verify Face
+                        </button>
+                        <button class="btn-camera" id="detectDeltoidBtn">
+                            <i class="fas fa-bullseye"></i> Detect Deltoid
+                        </button>
+                        <button class="btn-camera" id="refreshCameraBtn">
+                            <i class="fas fa-sync"></i> Refresh
+                        </button>
+                        <button class="btn-camera btn-approve" id="approveInjectionBtn">
+                            <i class="fas fa-check-circle"></i> Approve Injection
+                        </button>
+                    </div>
+                </div>
+
+                <div class="camera-sidebar">
+                    <div class="verification-panel">
+                        <h3><i class="fas fa-user-check"></i> Face Verification</h3>
+                        <div id="faceVerificationResult" class="result-box"></div>
+                    </div>
+
+                    <div class="detection-panel">
+                        <h3><i class="fas fa-crosshairs"></i> Deltoid Detection</h3>
+                        <div id="deltoidDetectionResult" class="result-box"></div>
+                    </div>
+
+                    <div class="selected-request-info">
+                        <h3><i class="fas fa-info-circle"></i> Selected Request</h3>
+                        <div id="selectedRequestInfo">
+                            <p>No request selected</p>
+                            <p><small>Start a request process from the Requests page</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ML Monitor Page -->
+        <div id="ml-monitorPage" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-brain"></i> ML Model Monitor</h1>
+                <button class="btn-primary" onclick="loadMLStats()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+
+            <div class="ml-status">
+                <h3><i class="fas fa-server"></i> ML Service Status</h3>
+                <div id="mlServiceStatus">
+                    <p>Checking...</p>
+                </div>
+            </div>
+
+            <div class="ml-grid">
+                <div class="ml-card">
+                    <h3>Face Recognition Model</h3>
+                    <div class="ml-info">
+                        <p><strong>Algorithm:</strong> LBPH (Local Binary Patterns Histograms)</p>
+                        <p><strong>Confidence Threshold:</strong> 60</p>
+                        <p><strong>Status:</strong> <span class="status-badge" id="faceModelStatus">Unknown</span></p>
+                    </div>
+                    <button class="btn-action" onclick="testFaceVerification()">
+                        <i class="fas fa-play"></i> Test Model
+                    </button>
+                </div>
+
+                <div class="ml-card">
+                    <h3>Deltoid Detection Model</h3>
+                    <div class="ml-info">
+                        <p><strong>Algorithm:</strong> MediaPipe Pose Estimation</p>
+                        <p><strong>Model Complexity:</strong> 1</p>
+                        <p><strong>Min Confidence:</strong> 0.5</p>
+                        <p><strong>Status:</strong> <span class="status-badge" id="deltoidModelStatus">Unknown</span></p>
+                    </div>
+                    <button class="btn-action" onclick="testDeltoidDetection()">
+                        <i class="fas fa-play"></i> Test Model
+                    </button>
+                </div>
+            </div>
+
+            <div class="ml-performance">
+                <h3><i class="fas fa-chart-line"></i> Performance Statistics</h3>
+                <div id="mlStats">
+                    <p>No performance data available yet. Use the models to collect statistics.</p>
+                </div>
+                <button class="btn-action" onclick="displayPerformanceStats()">
+                    <i class="fas fa-refresh"></i> Update Stats
+                </button>
+            </div>
+        </div>
+
+        <!-- Users Page -->
+        <div id="usersPage" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-users"></i> User Management</h1>
+                <button class="btn-primary" onclick="exportUsers()">
+                    <i class="fas fa-download"></i> Export Users
+                </button>
+            </div>
+
+            <div id="usersTable" class="users-table"></div>
+        </div>
+
+    </main>
+
+    <!-- Request Detail Modal -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-medical"></i> Request Details</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="requestModalBody">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/ml-monitor.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

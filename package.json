@@ -1,0 +1,31 @@
+{
+  "name": "smart-vaccination-system",
+  "version": "1.0.0",
+  "description": "Smart Vaccination System using Drone Unified with Robotic Arm",
+  "scripts": {
+    "start": "echo \"Please choose a service to start:\" && echo \"  npm run start:server  - Start Node.js backend\" && echo \"  npm run start:client  - Start React frontend\" && echo \"  npm run start:ml      - Start Python ML service\" && echo \"  npm run dev           - Start all services (requires concurrently)\"",
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm start",
+    "start:ml": "cd ml-service && ..\\myenv\\Scripts\\python.exe -m uvicorn app:app --reload",
+    "install:all": "npm run install:server && npm run install:client && npm run install:ml",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:ml": ".\\myenv\\Scripts\\python.exe -m pip install -r ml-service\\requirements.txt",
+    "dev": "echo \"Install concurrently first: npm install\" && concurrently \"npm run start:server\" \"npm run start:client\" \"npm run start:ml\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vaccination",
+    "drone",
+    "robotics",
+    "healthcare",
+    "machine-learning",
+    "face-recognition",
+    "pose-detection"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

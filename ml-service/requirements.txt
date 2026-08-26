@@ -1,0 +1,28 @@
+# Python ML Service Dependencies
+# Smart Vaccination System
+
+# FastAPI Framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+
+# Machine Learning Libraries
+numpy>=2.1.0
+opencv-contrib-python>=4.10.0
+pillow>=10.2.0
+
+# Face Recognition (Optional - install if needed)
+# deepface==0.0.79
+# tf-keras==2.15.0
+# tensorflow==2.15.0
+
+# Pose Detection (Optional - install if needed)
+# mediapipe==0.10.9
+
+# Utility Libraries
+pydantic>=2.5.3
+python-dotenv>=1.0.0
+
+# Development Tools
+pytest>=7.4.3
+requests>=2.31.0

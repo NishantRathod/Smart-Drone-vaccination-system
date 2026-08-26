@@ -1,0 +1,57 @@
+/* Import Dashboard styles */
+@import './UserDashboard.css';
+
+/* Booking specific styles */
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.booking-header h1 {
+  font-size: 36px;
+  color: #1a202c;
+  margin-bottom: 10px;
+}
+
+.booking-form {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.location-coordinates {
+  margin-top: 20px;
+}
+
+.form-note {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.info-box, .safety-notice {
+  background: #edf2f7;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.info-box h4, .safety-notice h4 {
+  color: #667eea;
+  margin-bottom: 15px;
+}
+
+.safety-notice {
+  border-left: 4px solid #fc8181;
+}
+
+.safety-notice h4 {
+  color: #c53030;
+}
